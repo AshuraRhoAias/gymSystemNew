@@ -1,9 +1,9 @@
 import { AppShell } from "@/components/app-shell"
 
-export default function PortalLayout({
+export default function UsuarioLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return <AppShell>{children}</AppShell>
+  return <AppShell area="usuario">{children}</AppShell>
 }
