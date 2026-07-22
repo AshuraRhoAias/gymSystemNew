@@ -7,6 +7,7 @@ import {
   Activity,
   BarChart3,
   Bell,
+  Contact,
   CreditCard,
   Dumbbell,
   Hexagon,
@@ -19,7 +20,6 @@ import {
   UserPlus,
   Users,
   UserRound,
-  Contact,
   X,
   Zap,
 } from "lucide-react"
@@ -32,25 +32,40 @@ type NavItem = {
   icon: typeof Activity
 }
 
-const adminNav: NavItem[] = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/registro", label: "Nuevo miembro", icon: UserPlus },
-  { href: "/pagos", label: "Pagos", icon: CreditCard },
-  { href: "/asistencia", label: "Asistencia", icon: ScanLine },
-  { href: "/instructores", label: "Instructores", icon: Contact },
-  { href: "/reportes", label: "Reportes", icon: BarChart3 },
-  { href: "/notificaciones", label: "Notificaciones", icon: Bell },
-  { href: "/configuracion", label: "Configuración", icon: Settings },
+type NavGroup = {
+  title: string
+  items: NavItem[]
+}
+
+const adminNavGroups: NavGroup[] = [
+  {
+    title: "Administración",
+    items: [
+      { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+      { href: "/registro", label: "Nuevo miembro", icon: UserPlus },
+      { href: "/pagos", label: "Pagos", icon: CreditCard },
+      { href: "/asistencia", label: "Asistencia", icon: ScanLine },
+      { href: "/instructores", label: "Instructores", icon: Contact },
+      { href: "/reportes", label: "Reportes", icon: BarChart3 },
+      { href: "/notificaciones", label: "Notificaciones", icon: Bell },
+      { href: "/configuracion", label: "Configuración", icon: Settings },
+    ],
+  },
+  {
+    title: "Entrenador",
+    items: [{ href: "/entrenador", label: "Mis alumnos", icon: Users }],
+  },
 ]
 
-const memberNav: NavItem[] = [
-  { href: "/", label: "Mi perfil", icon: UserRound },
-  { href: "/rutina", label: "Mi rutina", icon: Dumbbell },
-  { href: "/progreso", label: "Mi progreso", icon: LineChart },
-]
-
-const trainerNav: NavItem[] = [
-  { href: "/entrenador", label: "Mis alumnos", icon: Users },
+const usuarioNavGroups: NavGroup[] = [
+  {
+    title: "Mi cuenta",
+    items: [
+      { href: "/", label: "Mi perfil", icon: UserRound },
+      { href: "/rutina", label: "Mi rutina", icon: Dumbbell },
+      { href: "/progreso", label: "Mi progreso", icon: LineChart },
+    ],
+  },
 ]
 
 function NavLink({ item, onNavigate }: { item: NavItem; onNavigate: () => void }) {
@@ -77,20 +92,34 @@ function NavLink({ item, onNavigate }: { item: NavItem; onNavigate: () => void }
   )
 }
 
-const memberPaths = ["/", "/rutina", "/progreso"]
+type Persona = {
+  nombre: string
+  foto: string
+  rol: string
+}
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+const areaConfig = {
+  admin: {
+    label: "Administración",
+    navGroups: adminNavGroups,
+    persona: { nombre: "Roberto Díaz", foto: "/members/diego.png", rol: "Administrador" } as Persona,
+  },
+  usuario: {
+    label: "Miembro",
+    navGroups: usuarioNavGroups,
+    persona: { nombre: "Carlos Mendoza", foto: "/members/carlos.png", rol: "Miembro activo" } as Persona,
+  },
+}
+
+export function AppShell({
+  children,
+  area,
+}: {
+  children: React.ReactNode
+  area: "admin" | "usuario"
+}) {
   const [open, setOpen] = useState(false)
-  const pathname = usePathname()
-  const isTrainer = pathname.startsWith("/entrenador")
-  const isMember = memberPaths.includes(pathname)
-  const context = isTrainer ? "Entrenador" : isMember ? "Miembro" : "Administración"
-
-  const persona = isTrainer
-    ? { nombre: "Valeria Ríos", foto: "/trainers/valeria.png", rol: "Entrenadora" }
-    : isMember
-      ? { nombre: "Carlos Mendoza", foto: "/members/carlos.png", rol: "Miembro activo" }
-      : { nombre: "Roberto Díaz", foto: "/members/diego.png", rol: "Administrador" }
+  const { label, navGroups, persona } = areaConfig[area]
 
   return (
     <div className="relative min-h-svh">
@@ -127,23 +156,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-5">
-          <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
-            Administración
-          </p>
-          {adminNav.map((item) => (
-            <NavLink key={item.href} item={item} onNavigate={() => setOpen(false)} />
-          ))}
-          <p className="px-3 pb-2 pt-5 text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
-            Miembro
-          </p>
-          {memberNav.map((item) => (
-            <NavLink key={item.href} item={item} onNavigate={() => setOpen(false)} />
-          ))}
-          <p className="px-3 pb-2 pt-5 text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
-            Entrenador
-          </p>
-          {trainerNav.map((item) => (
-            <NavLink key={item.href} item={item} onNavigate={() => setOpen(false)} />
+          {navGroups.map((group) => (
+            <div key={group.title}>
+              <p className="px-3 pb-2 pt-5 text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground first:pt-0">
+                {group.title}
+              </p>
+              {group.items.map((item) => (
+                <NavLink key={item.href} item={item} onNavigate={() => setOpen(false)} />
+              ))}
+            </div>
           ))}
         </nav>
 
@@ -196,7 +217,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Activity className="size-4 text-accent" />
             <span className="text-foreground">Portal</span>
             <span className="text-muted-foreground">/</span>
-            <span className="text-accent">{context}</span>
+            <span className="text-accent">{label}</span>
           </div>
           <div className="ml-auto flex items-center gap-2 rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-muted-foreground">
             <span className="size-2 animate-pulse rounded-full bg-emerald-400" />
