@@ -425,3 +425,38 @@ export const gymRules = [
   "Mantén tu documentación (identificación y certificado médico) al día.",
   "Prohibido el ingreso con alimentos al área de entrenamiento.",
 ]
+
+export const estadosMexico = [
+  "Aguascalientes", "Baja California", "Baja California Sur", "Campeche",
+  "Chiapas", "Chihuahua", "Ciudad de México", "Coahuila", "Colima", "Durango",
+  "Estado de México", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco",
+  "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla",
+  "Querétaro", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora",
+  "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas",
+]
+
+export const diasSemana = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"]
+
+export const cartaResponsivaTexto = `Yo, el suscrito, manifiesto que ingreso de forma voluntaria a las instalaciones de ${gymInfo.nombre} para practicar la disciplina que he seleccionado en este documento. Declaro bajo protesta de decir verdad que me encuentro en condiciones físicas y de salud adecuadas para realizar actividad física, y que he informado con veracidad cualquier padecimiento, lesión, alergia o medicamento que pudiera representar un riesgo durante el entrenamiento.
+
+Entiendo que la actividad física conlleva un riesgo inherente de lesión y libero a ${gymInfo.nombre}, a su personal, entrenadores e instructores de cualquier responsabilidad derivada de accidentes ocasionados por el mal uso del equipo, el incumplimiento del reglamento interno, o por condiciones de salud no declaradas por el suscrito.
+
+Me comprometo a seguir las indicaciones del personal y entrenadores, a utilizar el equipo de forma adecuada y a presentar la documentación médica que me sea requerida. En caso de ser menor de edad, el presente documento deberá ser firmado también por mi padre, madre o tutor legal, quien asume conjuntamente la responsabilidad aquí descrita.
+
+Al aceptar esta carta responsiva, confirmo que he leído, entendido y acepto en su totalidad los términos aquí expuestos.`
+
+export const reglamentoInternoTexto = `1. Horarios de acceso. El acceso a las instalaciones se permite únicamente dentro de los horarios publicados. ${gymInfo.horarios}.
+
+2. Documentación. Todo miembro debe mantener vigente su identificación oficial y, cuando aplique, su certificado médico. La documentación pendiente cuenta con un plazo de 1 semana para ser entregada, con posibilidad de prórroga de hasta 2 semanas adicionales a criterio de la administración.
+
+3. Higiene y vestimenta. Es obligatorio el uso de toalla y calzado deportivo limpio dentro de las áreas de entrenamiento. Se prohíbe el ingreso con alimentos al área de pesas y funcional.
+
+4. Uso del equipo. Cada usuario debe guardar el equipo, descargar las barras y limpiar las superficies de contacto al terminar cada ejercicio. El mal uso o daño intencional del equipo será responsabilidad del usuario.
+
+5. Conducta. Se espera un trato respetuoso hacia el personal, entrenadores y demás miembros. ${gymInfo.nombre} se reserva el derecho de admisión y permanencia ante conductas inapropiadas.
+
+6. Menores de edad. Los menores de edad deberán ingresar acompañados o con autorización expresa de su padre, madre o tutor, quien deberá firmar la carta responsiva correspondiente.
+
+7. Control de acceso. El registro de entrada y salida (huella, QR o manual) es obligatorio para todos los miembros como medida de seguridad y control de aforo.
+
+Al marcar la casilla de aceptación, el usuario confirma que conoce y acepta este reglamento interno en su totalidad, quedando dicho consentimiento registrado con fecha y hora para respaldo administrativo.`
